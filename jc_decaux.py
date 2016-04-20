@@ -150,7 +150,7 @@ class bikeWriter:
             #create new file - external to this function
 
         if len(redundant_fields)>0:
-            debug.info(str(time())+ " Fields not used - "+str(redundant_fields))
+            logging.info(str(time())+ " Fields not used - "+str(redundant_fields))
             #raise a warning
 
     def __init__(self,in_obj,out_file,local_timestamp=True):
@@ -172,9 +172,9 @@ class bikeWriter:
                 self.compareHeaders(in_obj.output_fields,headerline)
                 
             except ValueError,e:
-                debug.warning(str(time())+ "Value Error: "+str(e))
+                logging.warning(str(time())+ "Value Error: "+str(e))
         except IOError:
-            debug.warning(str(time())+  " No such file - creating new file")
+            logging.warning(str(time())+  " No such file - creating new file")
             f = open(out_file, 'w')
             outputstr = ','.join(self.fields)
             f.writeline(outputstr)
@@ -191,7 +191,7 @@ class bikeWriter:
                 writer.writerow(input_obj[line])
                     
             
-def main():        
+def main(contract,delay,errdelay):        
     #set up classes for query and output
     logging.error(str(time())+" In Main") 
     bike =  jcCity(contract)
@@ -226,7 +226,7 @@ def main():
 
 #if this is being run directly then call main
 if __name__ == "__main__":
-    main()
+    main(contract,delay,errdelay)
 
 
 
