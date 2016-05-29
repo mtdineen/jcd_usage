@@ -11,6 +11,7 @@ import urllib2
 import csv
 from time import time,sleep
 import logging
+from os import getcwd
 
 ###
 #now setup config options
@@ -24,7 +25,7 @@ max_attempts = 10 # max consecutive attempts before quit
 #https://docs.python.org/2/howto/logging.html
 logging.basicConfig(filename='errors.log',level=logging.WARNING) #WARNING
 
-outputfolder = "/home/pi/Python/Bikes/"
+outputfolder = getcwd()+"/"# Worth testing this on Windows,may not be same
 outputdoc = "data.csv"
 outputfile = outputfolder+outputdoc
 
@@ -177,7 +178,7 @@ class bikeWriter:
             logging.warning(str(time())+  " No such file - creating new file")
             f = open(out_file, 'w')
             outputstr = ','.join(self.fields)
-            f.writeline(outputstr)
+            f.write(outputstr+'\n')
             f.close()
 
 
@@ -225,8 +226,8 @@ def main(contract,delay,errdelay):
     
 
 #if this is being run directly then call main
-if __name__ == "__main__":
-    main(contract,delay,errdelay)
+#if __name__ == "__main__":
+#    main(contract,delay,errdelay)
 
 
 
